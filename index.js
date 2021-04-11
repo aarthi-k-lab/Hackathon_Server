@@ -23,7 +23,9 @@ app.listen(port, () => {
 });
 
 //mongoose part
-const url = "mongodb://localhost/BookMyShow";
+// const url = "mongodb://localhost/BookMyShow";
+const url =
+  "mongodb+srv://aarthi:Chandlerbing@cluster0.prt4u.mongodb.net/BookMyShow?retryWrites=true&w=majority";
 mongoose.connect(url, { useNewUrlParser: true });
 const con = mongoose.connection;
 
