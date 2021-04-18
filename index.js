@@ -5,6 +5,7 @@ import { User } from "./models/user.js";
 import movie_router from "./routes/movie.js";
 import theatre_router from "./routes/theatre.js";
 import showtime_router from "./routes/showtime.js";
+import reservation_router from "./routes/reservation.js";
 
 const app = Express();
 
@@ -15,23 +16,29 @@ app.use(Express.urlencoded({ extended: true }));
 app.use("/api/movies", movie_router);
 app.use("/api/theatres", theatre_router);
 app.use("/api/showtimes", showtime_router);
+app.use("/api/reservations", reservation_router);
 
-const port = process.env.PORT || 3200;
+const PORT = process.env.PORT || 5000;
 
-app.listen(port, () => {
-  console.log("server started");
-});
+// const CONNECTION_URL =
+//   "mongodb+srv://aarthi:Chandlerbing@cluster0.prt4u.mongodb.net/BookMyShow?retryWrites=true&w=majority";
 
-//mongoose part
-// const url = "mongodb://localhost/BookMyShow";
-const url =
-  "mongodb+srv://aarthi:Chandlerbing@cluster0.prt4u.mongodb.net/BookMyShow?retryWrites=true&w=majority";
-mongoose.connect(url, { useNewUrlParser: true });
-const con = mongoose.connection;
+// const CONNECTION_URL =
+//   "mongodb+srv://aarthi:Chandlerbing@cluster0.prt4u.mongodb.net/BookMyShow?retryWrites=true&w=majority";
 
-con.on("open", function () {
-  console.log("Mongo DB connected");
-});
+const CONNECTION_URL =
+  " mongodb://aarthi:Chandlerbing@cluster0-shard-00-00.prt4u.mongodb.net:27017,cluster0-shard-00-01.prt4u.mongodb.net:27017,cluster0-shard-00-02.prt4u.mongodb.net:27017/BookMyShow?ssl=true&replicaSet=atlas-g6xe0w-shard-0&authSource=admin&retryWrites=true&w=majority";
+
+mongoose
+  .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() =>
+    app.listen(PORT, () =>
+      console.log(
+        `Server Running on Port:http://immense-sands-26614.herokuapp.com`
+      )
+    )
+  )
+  .catch((error) => console.log(`${error} did not connect`));
 
 //User HTTP Request for users collection
 
