@@ -7,7 +7,7 @@ movie_router
   .get(async (req, res) => {
     try {
       const movies = await Movie.find();
-      res.json(movies);
+      res.send(movies);
     } catch (err) {
       res.send(err);
     }
@@ -27,7 +27,7 @@ movie_router
         endDate: req.body.endDate,
       });
       const newMovie = await movie.save();
-      res.json(newMovie);
+      res.send(newMovie);
     } catch (err) {
       res.send(err);
     }
@@ -38,7 +38,7 @@ movie_router
   .get(async (req, res) => {
     try {
       const movie = await Movie.findById(req.params.id);
-      res.json(movie);
+      res.send(movie);
     } catch (err) {
       res.send(err);
     }
@@ -47,7 +47,7 @@ movie_router
   .delete(async (req, res) => {
     try {
       const movie = await Movie.findByIdAndDelete(req.params.id);
-      res.json(movie);
+      res.send(movie);
     } catch (err) {
       res.send(err);
     }
@@ -72,7 +72,7 @@ movie_router
           if (err) console.log(err);
         }
       );
-      res.json(movie);
+      res.send(movie);
     } catch (err) {
       res.send(err);
     }
